@@ -2,7 +2,7 @@
 
 ## Al-Car
 
-### * Members
+- ### Members
 
 ##### 전진영 : 팀장
 
