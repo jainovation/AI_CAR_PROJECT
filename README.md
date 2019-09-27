@@ -39,10 +39,35 @@
   > ##### 모형차를 활용한 주행 Test
   
   
-* ### SW
+* ### S/W
 
-* ### HW
-
+* ### H/W
+  > ##### Jetson-TX2 Board
+  
+  > ##### OpenCR Board
+  
+  > ##### SSD 250GB
+  
+  > ##### USB Camera
+  
+  > ##### USB Herb(3.0/7 ports)
+  
+  > ##### BLDC Motor
+  
+  > ##### Servo Motor
+  
+  > ##### VESC(Motor Driver)
+  
+  > ##### Lidar Sensor
+  
+  > ##### IMU Sensor
+  
+  > ##### UltraSonic Sensor
+  
+  > ##### TX's Battery, Motor's Battery
+  
+  > ##### Car's Body
+  
 Result
 
 Limitations
