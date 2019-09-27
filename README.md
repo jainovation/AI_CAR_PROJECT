@@ -16,6 +16,7 @@
 * ### What is Al-Car?
 
   > ##### 2019 Nvidia 기반 자율주행 자동차 구현
+  
   > ##### Deep Learning, OpenCV 구현 예정.
 
 * ### 목표
@@ -26,11 +27,17 @@
 
 * ### 주요 기술
   > ##### 상황인식(영상처리 - OpenCV, Deep Learning)
+  
   > ##### 모터 드라이버를 이용한 BLDC Motor, Survo Motor Control
+  
   > ##### ROS(Kinetic)를 활용한 gazebo simulation
+  
   > ##### Lidar, Camera Sensor 신호처리
+  
   > ##### ACC, AEB 등 ADAS System logic 설계
+  
   > ##### 모형차를 활용한 주행 Test
+  
   
 * ### SW
 
