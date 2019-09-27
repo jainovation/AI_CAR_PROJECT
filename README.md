@@ -15,10 +15,8 @@
 
 * ### What is Al-Car?
 
-  > ##### 2019 Nvidia 기반 자율주행 자동차 구현
+  > ##### 2019 Nvidia Flatform 기반의 자율주행 자동차
   
-  > ##### Deep Learning, OpenCV 구현 예정.
-
 * ### 목표
 
   > ##### NVIDIA PLATFORM을 활용한 ACC, AEB 등 주행보조시스템(ADAS) 구현
