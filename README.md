@@ -40,7 +40,16 @@
   
   
 * ### S/W
-
+  > ##### ROS
+  
+  > ##### OpenCV
+  
+  > ##### Deep Learning
+  
+  > ##### Sensor Fusion
+  
+  > ##### Motor Control
+  
 * ### H/W
   > ##### Jetson-TX2 Board
   
