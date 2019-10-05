@@ -4,7 +4,7 @@
 2. 사용 목적
    - Object detection
    - 위급상황 사물 인식 후 긴급회피 동작
-   - 위급상황 외 ACC
+   - 위급상황 외 ACC(Adaptive Cruise Control)
 
 3. 내용
    * TX2 기준
