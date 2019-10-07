@@ -8,6 +8,7 @@ https://cupjoo.tistory.com/53
 설치하기 전에 BIOS 설정에서 fast boot, secure boot 옵션 끄고 시작하기☆☆☆
 
 https://inpages.tistory.com/149
+
 https://codechacha.com/ko/install-nvidia-driver-ubuntu/
 
 https://jangjy.tistory.com/m/260 (무한로그인 해결하기)
