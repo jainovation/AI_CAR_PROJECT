@@ -6,4 +6,4 @@ IMU_Software Installation
    - $ sudo apt-get update
    - $ sudo apt-get install ubuntu-make
    
-> '($ sudo apt-get install ubuntu-make)
+> ' sudo apt-get install ubuntu-make'
