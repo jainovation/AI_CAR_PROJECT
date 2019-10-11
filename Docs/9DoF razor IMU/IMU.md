@@ -11,3 +11,6 @@ IMU_Software Installation
    - `$ sudo usermod -aG dialout (아이디)`
 +  #### 설정 적용을 위해 재부팅
    - `$ sudo reboot`
+
+### 2. Visual Python Install(Required for the 3D visualization node)
+   - `$ sudo apt-get install python-visual`
