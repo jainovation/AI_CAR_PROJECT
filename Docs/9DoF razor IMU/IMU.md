@@ -33,5 +33,4 @@ IMU_Software Installation
 + #### Copy the template file razor.yaml:
    - `$ roscd razor_imu_9dof/config`
    - `$ cp razor.yaml my_razor.yaml`
-   - `$ roscd razor_imu_9dof/config` </n> - `$ cp razor.yaml my_razor.yaml`
-      * Edit my_razor.yaml as needed. See further for more information on setting the calibration values.
+    * Edit my_razor.yaml as needed. See further for more information on setting the calibration values.
