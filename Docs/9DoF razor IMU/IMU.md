@@ -1,7 +1,6 @@
 IMU_Software Installation
 =========================
-1. Arduino IDE Install
-----------------------
+### 1. Arduino IDE Install
 > + ubuntu-make install
 > > + $ sudo apt-add-respository ppa:ubuntu-desktop/ubuntu-make
 > > + $ sudo apt-get update
