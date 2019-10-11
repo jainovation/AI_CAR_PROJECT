@@ -5,4 +5,5 @@ IMU_Software Installation
    - $ sudo apt-add-respository ppa:ubuntu-desktop/ubuntu-make
    - $ sudo apt-get update
    - $ sudo apt-get install ubuntu-make
-   ' $ sudo apt-get install ubuntu-make '
+   
+   '$ sudo apt-get install ubuntu-make'
