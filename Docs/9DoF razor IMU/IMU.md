@@ -34,3 +34,8 @@ IMU_Software Installation
    - `$ roscd razor_imu_9dof/config`
    - `$ cp razor.yaml my_razor.yaml`
      * Edit my_razor.yaml as needed. See further for more information on setting the calibration values.
+     
+### 6. Testing the AHRS & 3D Visualization Test GUI
++ #### Source uproad & View Serial Moniter
++ #### 3D GUI launch file start
+   - `$ roslaunch razor_imu_9dof razor-pub-and-display.launch`
