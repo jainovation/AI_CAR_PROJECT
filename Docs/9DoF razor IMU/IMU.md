@@ -39,3 +39,9 @@ IMU_Software Installation
 + #### Source uproad & View Serial Moniter
 + #### 3D GUI launch file start
    - `$ roslaunch razor_imu_9dof razor-pub-and-display.launch`
+   
+
+
+### 참조 링크
+#### ROS wiki: http://wiki.ros.org/razor_imu_9dof
+#### Arduino: https://www.arduino.cc/en/Guide/Linux
