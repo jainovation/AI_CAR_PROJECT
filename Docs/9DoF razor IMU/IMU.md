@@ -7,3 +7,4 @@ IMU_Software Installation
    - $ sudo apt-get install ubuntu-make
    
 > ' sudo apt-get install ubuntu-make'
+`인라인 코드 블럭`
