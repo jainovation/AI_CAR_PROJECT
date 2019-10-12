@@ -45,9 +45,9 @@ IMU_Software Installation
 + #### The normal way to start publishing Imu data from the Razor is to run the launch file:
    - `$ roscore`
    - `$ roslaunch razor_imu_9dof razor-pub.launch`
-         * ###### List 안에 imu 확인
+        * ###### List 안에 imu 확인
    - `$ rostopic list`
-         * ###### imu data를 rostopic를 이용해 터미널 상에서 볼 수 있다.
+        * ###### imu data를 rostopic를 이용해 터미널 상에서 볼 수 있다.
    - `$ rostopic echo imu`
 
 
