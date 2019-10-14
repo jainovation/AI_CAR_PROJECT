@@ -1,3 +1,5 @@
+(추가-동환) OpenCV 3.4 설치 링크 https://blog.naver.com/PostView.nhn?blogId=mingu216&logNo=221296370057&redirect=Dlog&widgetTypeCall=true&directAccess=false
+
 차선인식 open cv CPP파일 (https://webnautes.tistory.com/1244?category=707231) 
 - 사용 동영상 : https://github.com/georgesung/road_lane_line_detection
 
