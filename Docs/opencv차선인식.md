@@ -1,37 +1,37 @@
-Â÷¼±ÀÎ½Ä open cv CPPÆÄÀÏ (https://webnautes.tistory.com/1244?category=707231) 
-- »ç¿ë µ¿¿µ»ó : https://github.com/georgesung/road_lane_line_detection
+ì°¨ì„ ì¸ì‹ open cv CPPíŒŒì¼ (https://webnautes.tistory.com/1244?category=707231) 
+- ì‚¬ìš© ë™ì˜ìƒ : https://github.com/georgesung/road_lane_line_detection
 
-makefile ¸¸µå´Â ¼ø¼­
-1. opencv¿¡¼­ ¼³Ä¡ ¹æ¹ı: http://webnautes.tistory.com/1186 ÁøÇà, 
+makefile ë§Œë“œëŠ” ìˆœì„œ
+1. opencvì—ì„œ ì„¤ì¹˜ ë°©ë²•: http://webnautes.tistory.com/1186 ì§„í–‰, 
  (1) wget ftp://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
  (2) tar -xzvf gsl-2.6.tar.gz
  (3) cd gsl-2.6/
  (4) ./configure
  (5) make - make check - make install
-2. makefile ¸¸µé±â
-  (1) °æ·Î Ãß°¡ : INC = -L/usr/local/lib -I/usr/local/include/gsl -I/usr/local/include
-  (2) ¶óÀÌºê·¯¸® Ãß°¡ :  LIBS = ³¡¿¡ ' -lgsl  -lgslcblas '
+2. makefile ë§Œë“¤ê¸°
+  (1) ê²½ë¡œ ì¶”ê°€ : INC = -L/usr/local/lib -I/usr/local/include/gsl -I/usr/local/include
+  (2) ë¼ì´ë¸ŒëŸ¬ë¦¬ ì¶”ê°€ :  LIBS = ëì— ' -lgsl  -lgslcblas '
 
 
-3. ¼Ò½ºÄÚµå(full)
-// ¿øº» ÄÚµå  https://github.com/georgesung/road_lane_line_detection/blob/master/lane_lines.py
-// ¼öÁ¤ - webnautes
+3. ì†ŒìŠ¤ì½”ë“œ(full)
+// ì›ë³¸ ì½”ë“œ  https://github.com/georgesung/road_lane_line_detection/blob/master/lane_lines.py
+// ìˆ˜ì • - webnautes
 //
-// ÇÊ¿äÇÑ ¶óÀÌºê·¯¸®
+// í•„ìš”í•œ ë¼ì´ë¸ŒëŸ¬ë¦¬
 // OpenCV 3.x  http://opencv.org/releases.html
 
-// ¼³Ä¡ ¹æ¹ı http://webnautes.tistory.com/1186
+// ì„¤ì¹˜ ë°©ë²• http://webnautes.tistory.com/1186
 
 //
 // GSL - GNU Scientific Library https://www.gnu.org/software/gsl/
-// ¼³Ä¡ ¹æ¹ı sudo apt-get install libgsl-dev
+// ì„¤ì¹˜ ë°©ë²• sudo apt-get install libgsl-dev
 //
-// ÄÄÆÄÀÏ 
+// ì»´íŒŒì¼ 
 
 // g++ main.cpp -o main $(pkg-config opencv --libs --cflags) -lgsl -lcblas
 
 //
-// Å×½ºÆ® µ¿¿µ»ó ´Ù¿î·Îµå 
+// í…ŒìŠ¤íŠ¸ ë™ì˜ìƒ ë‹¤ìš´ë¡œë“œ 
 
 // https://github.com/georgesung/road_lane_line_detection
 
@@ -47,7 +47,7 @@ using namespace std;
 
 
 
-//Hough Transform ÆÄ¶ó¹ÌÅÍ
+//Hough Transform íŒŒë¼ë¯¸í„°
 float rho = 2; // distance resolution in pixels of the Hough grid
 float theta = 1 * CV_PI / 180; // angular resolution in radians of the Hough grid
 float hough_threshold = 15;	 // minimum number of votes(intersections in Hough grid cell)
@@ -55,17 +55,17 @@ float minLineLength = 10; //minimum number of pixels making up a line
 float maxLineGap = 20;	//maximum gap in pixels between connectable line segments
 
 
-//Region - of - interest vertices, °ü½É ¿µ¿ª ¹üÀ§ °è»ê½Ã »ç¿ë 
+//Region - of - interest vertices, ê´€ì‹¬ ì˜ì—­ ë²”ìœ„ ê³„ì‚°ì‹œ ì‚¬ìš© 
 //We want a trapezoid shape, with bottom edge at the bottom of the image
 float trap_bottom_width = 0.85;  // width of bottom edge of trapezoid, expressed as percentage of image width
 float trap_top_width = 0.07;     // ditto for top edge of trapezoid
 float trap_height = 0.4;         // height of the trapezoid expressed as percentage of image height
 
 
-//Â÷¼± »ö±ò ¹üÀ§ 
-Scalar lower_white = Scalar(200, 200, 200); //Èò»ö Â÷¼± (RGB)
+//ì°¨ì„  ìƒ‰ê¹” ë²”ìœ„ 
+Scalar lower_white = Scalar(200, 200, 200); //í°ìƒ‰ ì°¨ì„  (RGB)
 Scalar upper_white = Scalar(255, 255, 255);
-Scalar lower_yellow = Scalar(10, 100, 100); //³ë¶õ»ö Â÷¼± (HSV)
+Scalar lower_yellow = Scalar(10, 100, 100); //ë…¸ë€ìƒ‰ ì°¨ì„  (HSV)
 Scalar upper_yellow = Scalar(40, 255, 255);
 
 
@@ -346,7 +346,7 @@ int main(int, char**)
 
 	if (!videoCapture.isOpened())
 	{
-		cout << "µ¿¿µ»ó ÆÄÀÏÀ» ¿­¼ö ¾ø½À´Ï´Ù. \n" << endl;
+		cout << "ë™ì˜ìƒ íŒŒì¼ì„ ì—´ìˆ˜ ì—†ìŠµë‹ˆë‹¤. \n" << endl;
 
 		char a;
 		cin >> a;
@@ -380,16 +380,16 @@ int main(int, char**)
 	while (1)
 	{
 
-		//1. ¿øº» ¿µ»óÀ» ÀĞ¾î¿È 
+		//1. ì›ë³¸ ì˜ìƒì„ ì½ì–´ì˜´ 
 		videoCapture.read(img_bgr);
 		if (img_bgr.empty()) break;
 
 
-		//2. ¹Ì¸® Á¤ÇØµĞ Èò»ö, ³ë¶õ»ö ¹üÀ§ ³»¿¡ ÀÖ´Â ºÎºĞ¸¸ Â÷¼±ÈÄº¸·Î µû·Î ÀúÀåÇÔ 
+		//2. ë¯¸ë¦¬ ì •í•´ë‘” í°ìƒ‰, ë…¸ë€ìƒ‰ ë²”ìœ„ ë‚´ì— ìˆëŠ” ë¶€ë¶„ë§Œ ì°¨ì„ í›„ë³´ë¡œ ë”°ë¡œ ì €ì¥í•¨ 
 		Mat img_filtered;
 		filter_colors(img_bgr, img_filtered);
 
-		//3. ±×·¹ÀÌ½ºÄÉÀÏ ¿µ»óÀ¸·Î º¯È¯ÇÏ¿© ¿¡Áö ¼ººĞÀ» ÃßÃâ
+		//3. ê·¸ë ˆì´ìŠ¤ì¼€ì¼ ì˜ìƒìœ¼ë¡œ ë³€í™˜í•˜ì—¬ ì—ì§€ ì„±ë¶„ì„ ì¶”ì¶œ
 		cvtColor(img_filtered, img_gray, COLOR_BGR2GRAY);
 		GaussianBlur(img_gray, img_gray, Size(3, 3), 0, 0);
 		Canny(img_gray, img_edges, 50, 150);
@@ -407,50 +407,50 @@ int main(int, char**)
 		points[3] = Point(width - (width * (1 - trap_bottom_width)) / 2, height);
 
 
-		//4. Â÷¼± °ËÃâÇÒ ¿µ¿ªÀ» Á¦ÇÑÇÔ(ÁøÇà¹æÇâ ¹Ù´Ú¿¡ Á¸ÀçÇÏ´Â Â÷¼±À¸·Î ÇÑÁ¤)
+		//4. ì°¨ì„  ê²€ì¶œí•  ì˜ì—­ì„ ì œí•œí•¨(ì§„í–‰ë°©í–¥ ë°”ë‹¥ì— ì¡´ì¬í•˜ëŠ” ì°¨ì„ ìœ¼ë¡œ í•œì •)
 		img_edges = region_of_interest(img_edges, points);
 
 
 		UMat uImage_edges;
 		img_edges.copyTo(uImage_edges);
 
-		//5. Á÷¼± ¼ººĞÀ» ÃßÃâ(°¢ Á÷¼±ÀÇ ½ÃÀÛÁÂÇ¥¿Í ³¡ÁÂÇ¥¸¦ °è»êÇÔ)
+		//5. ì§ì„  ì„±ë¶„ì„ ì¶”ì¶œ(ê° ì§ì„ ì˜ ì‹œì‘ì¢Œí‘œì™€ ëì¢Œí‘œë¥¼ ê³„ì‚°í•¨)
 		vector<Vec4i> lines;
 		HoughLinesP(uImage_edges, lines, rho, theta, hough_threshold, minLineLength, maxLineGap);
 
 
 
 
-		//6. 5¹ø¿¡¼­ ÃßÃâÇÑ Á÷¼±¼ººĞÀ¸·ÎºÎÅÍ ÁÂ¿ì Â÷¼±¿¡ ÀÖÀ» °¡´É¼ºÀÖ´Â Á÷¼±µé¸¸ µû·Î »Ì¾Æ¼­
-		//ÁÂ¿ì °¢°¢ ÇÏ³ª¾¿ Á÷¼±À» °è»êÇÔ (Linear Least-Squares Fitting)
+		//6. 5ë²ˆì—ì„œ ì¶”ì¶œí•œ ì§ì„ ì„±ë¶„ìœ¼ë¡œë¶€í„° ì¢Œìš° ì°¨ì„ ì— ìˆì„ ê°€ëŠ¥ì„±ìˆëŠ” ì§ì„ ë“¤ë§Œ ë”°ë¡œ ë½‘ì•„ì„œ
+		//ì¢Œìš° ê°ê° í•˜ë‚˜ì”© ì§ì„ ì„ ê³„ì‚°í•¨ (Linear Least-Squares Fitting)
 		Mat img_line = Mat::zeros(img_bgr.rows, img_bgr.cols, CV_8UC3);
 		draw_line(img_line, lines);
 
 
 
 
-		//7. ¿øº» ¿µ»ó¿¡ 6¹øÀÇ Á÷¼±À» °°ÀÌ º¸¿©ÁÜ 
+		//7. ì›ë³¸ ì˜ìƒì— 6ë²ˆì˜ ì§ì„ ì„ ê°™ì´ ë³´ì—¬ì¤Œ 
 		addWeighted(img_bgr, 0.8, img_line, 1.0, 0.0, img_annotated);
 
 
-		//8. °á°ú¸¦ µ¿¿µ»ó ÆÄÀÏ·Î ±â·Ï 
+		//8. ê²°ê³¼ë¥¼ ë™ì˜ìƒ íŒŒì¼ë¡œ ê¸°ë¡ 
 		writer << img_annotated;
 
 		count++;
 		if (count == 10) imwrite("img_annota1ted.jpg", img_annotated);
 
-		//9. °á°ú¸¦ È­¸é¿¡ º¸¿©ÁÜ 
+		//9. ê²°ê³¼ë¥¼ í™”ë©´ì— ë³´ì—¬ì¤Œ 
 		Mat img_result;
 		resize(img_annotated, img_annotated, Size(width*0.7, height*0.7));
 		resize(img_edges, img_edges, Size(width*0.7, height*0.7));
 		cvtColor(img_edges, img_edges, COLOR_GRAY2BGR);
 		hconcat(img_edges, img_annotated, img_result);
-		imshow("Â÷¼± ¿µ»ó", img_result);
+		imshow("ì°¨ì„  ì˜ìƒ", img_result);
 
 
 
 
-		if (waitKey(1) == 27) break; //ESCÅ° ´©¸£¸é Á¾·á  
+		if (waitKey(1) == 27) break; //ESCí‚¤ ëˆ„ë¥´ë©´ ì¢…ë£Œ  
 	}
 
 
