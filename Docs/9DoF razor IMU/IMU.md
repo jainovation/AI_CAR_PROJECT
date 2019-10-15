@@ -22,7 +22,7 @@ IMU_Software Installation
    - `$ cd ../`
    - `$ catkin_make`
 + #### Install the razor_imu_9dof package from repository, e.g. for Kinetic:
-   - `$ sudo apt-get install ros-indigo-razor-imu-9dof`
+   - `$ sudo apt-get install ros-kinetic-razor-imu-9dof`
 
 ### 4. Load Firmware into Razor Board
 + #### Copy the Razor firmware from the razor_imu_9dof/src directory to your arduino source directory.
