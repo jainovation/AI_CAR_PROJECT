@@ -1,0 +1,1 @@
+https://www.jetsonhacks.com/2015/04/22/install-qt-creator-on-nvidia-jetson-tk1/
