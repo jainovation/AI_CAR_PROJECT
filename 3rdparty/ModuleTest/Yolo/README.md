@@ -14,3 +14,11 @@ $ source ~/catkin_ws/devel/setup.bash
 
 ##if error while decoding frame, you input once next code
 $ roslaunch usb_cam usb_cam-test.launch
+
+
+
+##acc logic test
+
+rosrun acc_logic_ros obj_subcriber
+
+**this is topic echo. if you can detect "car", it's move servo motor. this will change DC motor or send message to lidar sensor
