@@ -12,7 +12,15 @@
 
   > ##### 김동환 
 
-
+* ### Complete Mission
+  > ### 전진영
+  
+  > ### 이규호
+  
+  > ### 김준영
+  
+  > ### 김동환
+  
 * ### What is Al-Car?
 
   > ##### 2019 Nvidia Flatform 기반의 자율주행 자동차
