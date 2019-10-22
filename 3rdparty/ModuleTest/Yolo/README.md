@@ -11,3 +11,6 @@ $ rosrun rqt_graph rqt_graph
 
 ##If you have error or not fonund, you input next code
 $ source ~/catkin_ws/devel/setup.bash
+
+##if error while decoding frame, you input once next code
+$ roslaunch usb_cam usb_cam-test.launch
