@@ -22,6 +22,7 @@
     >> ##### Motor : DC and Servo test in TX2 Ubuntu 16.04LTS environment
   > #### 김준영
     >> ##### Opencv : Unit test - TX2 and ROS and Windows VM Ubuntu 18.04LTS environment
+    >> ##### Rviz : make test example
   > #### 김동환
     >> ##### Opencv : Unit test - Labtop Ubuntu 16.04LTS and ROS and TX2 environment
     >> ##### Rviz : example test : autonomous driving test
