@@ -19,6 +19,6 @@ $ rosrun rqt_graph rqt_graph
 
 ##acc logic test
 
-> $ rosrun acc_logic_ros obj_subcriber
+> $ rosrun acc_logic_ros obj_subscriber
 
 **this is topic echo. if you can detect "car", it's move servo motor. this will change DC motor or send message to lidar sensor
