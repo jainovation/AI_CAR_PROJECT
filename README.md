@@ -17,6 +17,7 @@
   > #### 전진영
     >> ##### Yolo : Unit test - detect "Car" and servo control 
     >> ##### Rviz : example test : autonomous driving test
+    >> ##### Motor : Prototpye made dc motor stop, when detect "Car"
   > #### 이규호
     >> ##### IMU : Unit test - Arduino and ROS and Windows environment
     >> ##### Motor : DC and Servo test in TX2 Ubuntu 16.04LTS environment
