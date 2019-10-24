@@ -97,6 +97,6 @@ Result
 
 Limitations
 
-#reference
->##https://medium.com/adventures-in-autonomous-vehicles/introducing-the-f1-10-simulator-b614af2cd652
->##http://f1tenth.org/build.html
+# reference
+>## https://medium.com/adventures-in-autonomous-vehicles/introducing-the-f1-10-simulator-b614af2cd652
+>## http://f1tenth.org/build.html
