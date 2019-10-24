@@ -77,11 +77,11 @@
   
   > ##### USB Herb(3.0/7 ports)
   
-  > ##### BLDC Motor
+  > ##### DC Motor
   
   > ##### Servo Motor
   
-  > ##### VESC(Motor Driver)
+  > ##### ESC(Motor Driver)
   
   > ##### Lidar Sensor
   
