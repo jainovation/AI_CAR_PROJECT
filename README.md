@@ -22,6 +22,7 @@
     >> ##### IMU : Unit test - Arduino and ROS and Windows environment
     >> ##### Motor : DC and Servo test in TX2 Ubuntu 16.04LTS environment
     >> ##### Yolo : Unit test - test in ROS environment
+    >> ##### TX2 : I2C comunication test
   > #### 김준영
     >> ##### Opencv : Unit test - TX2 and ROS and Windows VM Ubuntu 18.04LTS environment
     >> ##### Rviz : make test example
