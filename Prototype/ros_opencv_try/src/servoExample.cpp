@@ -24,9 +24,11 @@
 
 using namespace std;
 
-int servoMid = 307 ;
-int servoMin = 220 ; //left
-int servoMax = 400 ; //right
+int stopDC = 307 ;
+int servoMin = 250 ; //left
+int servoMax = 430 ; //right
+int angle = 340 ;
+int speed = 307 ;
 
 int number=0;
 
