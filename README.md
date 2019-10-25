@@ -12,8 +12,18 @@
 
   > ##### 김동환 
 
-* ### Working to do
-
+* ### Working to thing
+  > #### Union TEST : ROS
+  > #### 전진영
+    >> ##### Yolo
+  > #### 이규호
+    >> ##### lidar
+  > #### 김준영
+    >> ##### slam
+    >> ##### RRT
+  > #### 김동환
+    >> ##### Opencv
+  
 * ### Complete Mission
   > #### Union TEST : ROS
   > #### 전진영
