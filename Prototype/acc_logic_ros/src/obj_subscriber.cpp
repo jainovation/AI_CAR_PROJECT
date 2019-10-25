@@ -24,8 +24,8 @@
 using namespace std;
 
 int servoMid = 307 ;
-int servoMin = 220 ; //left
-int servoMax = 400 ; //right
+int servoMin = 250 ; //left
+int servoMax = 430 ; //right
 
 PCA9685 *pca9685 = new PCA9685() ;
 int err;
@@ -159,7 +159,7 @@ int main(int argc, char **argv)
     sleep(1);
     pca9685->setPWM(ESC_CHANNEL,0,THROTTLE_NEUTRAL);
     sleep(1);
-    pca9685->setPWM(ESC_CHANNEL,0,280);
+    pca9685->setPWM(ESC_CHANNEL,0,290);
    
     //ros::Subscriber cood_sub = nh.subscribe("/darknet_ros/bounding_boxes",100,msgCallback);
     ros::Subscriber cood_sub2 = nh.subscribe("/darknet_ros/bounding_boxes",100,carDetect);
