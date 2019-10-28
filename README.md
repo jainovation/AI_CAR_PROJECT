@@ -23,6 +23,7 @@
     >> ##### RRT
   > #### 김동환
     >> ##### Opencv
+    >> ##### reciving velocity data from IMU Sensor
   
 * ### Complete Mission
   > #### Union TEST : ROS
