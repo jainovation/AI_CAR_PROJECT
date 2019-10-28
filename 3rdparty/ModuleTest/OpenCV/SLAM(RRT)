@@ -1,0 +1,583 @@
+%% 시간에 따라 변하는 장애물이 있을 때 RRT로 path planning을 해보자.
+
+clc;
+
+clear all;
+
+close all;
+
+
+
+fprintf('Path planning using RRT in dynamic environment \n');
+
+
+
+%% 실험 설정을 한다. 
+
+plot_stage_and_obs     = 0;   % 현재 실험 환경을 그려본다. 
+
+plot_static_rrt_final  = 1;   % RRT 최종 결과를 그린다. 
+
+plot_dynamic_rrt_final = 1;   % RRT 결과를 dynamic하게 그려본다. 
+
+save_video             = 1;   % 동영상으로 저장한다. 
+
+
+
+%% 1. 실험 공간을 설정한다.
+
+
+
+% 1. Make stage
+
+stage_struct = rrt_init_stage(10, 10);
+
+
+
+% 2. Make static obstacles
+
+obs_struct = rrt_init_obs();
+
+obs_struct = rrt_add_obs(obs_struct, [0 5], [0 0 ; 3 0 ; 5 2 ; 0 2], [0 0]);
+
+obs_struct = rrt_add_obs(obs_struct, [5 3], [0 0 ; 5 0 ; 5 2 ; 2 2], [0 0]);
+
+
+
+% 3. Make dynamic obstacles
+
+obs_struct = rrt_add_obs(obs_struct, [1 1], [1 0 ; 0 1 ; -1 0 ; 0 -1], [.1 .1]);
+
+obs_struct = rrt_add_obs(obs_struct, [9 9], [1 0 ; 0 1 ; -1 0 ; 0 -1], -[.1 .1]);
+
+
+
+% 4. 시작점과 도착점을 설정한다.
+
+pos_start = [9 1];
+
+pos_goal  = [1 9];
+
+
+
+% 4. 확인해 본다.
+
+if plot_stage_and_obs
+
+    figure('Position', [900 200 900 700]);
+
+    for t = 1:80
+
+        % 1. Draw stage boundary
+
+        clf; hold on;
+
+        plot(stage_struct.boundary(:, 1), stage_struct.boundary(:, 2), 'r', 'LineWidth', 4);
+
+        % 2. Draw obstacles
+
+        for i = 1:obs_struct.nr_obs
+
+            obs_boundary = rrt_get_obs_boundary(obs_struct, i, t);
+
+            h_bos = fill(obs_boundary(:, 1), obs_boundary(:, 2)...
+
+                , obs_struct.color{i} ...
+
+                ,'LineWidth', 4);
+
+            text(mean(obs_boundary(1:end-1, 1)), mean(obs_boundary(1:end-1, 2)) ...
+
+                , sprintf('[%d-th]', i) ...
+
+                , 'HorizontalAlignment','center' ...
+
+                , 'FontSize', 15 );
+
+        end
+
+        % 3. Draw start and goal points
+
+        h_start = plot(pos_start(1), pos_start(2), 'o' ...
+
+            , 'LineWidth', 3 ...
+
+            , 'MarkerEdgeColor','k' ...
+
+            , 'MarkerFaceColor','g' ...
+
+            , 'MarkerSize', 13);
+
+        text(pos_start(1), pos_start(2), '   Start point');
+
+        h_goal = plot(pos_goal(1), pos_goal(2), 'o'...
+
+            , 'LineWidth', 3 ...
+
+            , 'MarkerEdgeColor','k' ...
+
+            , 'MarkerFaceColor','r' ...
+
+            , 'MarkerSize', 13);
+
+        text(pos_goal(1), pos_goal(2), '   Goal point');
+
+        % 4. legend, title and others..
+
+        legend([h_bos h_start h_goal], 'obastacle', 'start', 'goal', -1);
+
+        hold off; grid on;
+
+        title(sprintf('Operating Stage, time: %d', t), 'FontSize', 15);
+
+        drawnow; pause(.05);
+
+    end
+
+end
+
+
+
+%% 2. RRT를 한다.
+
+
+
+% 1. RRT를 초기화한다.
+
+rrt_struct = rrt_init_rrt(pos_start, pos_goal);
+
+
+
+% 2. RRT를 수행한다.
+
+tic;
+
+while 1
+
+    % fprintf('[%d] \n', rrt_struct.iter);
+
+    
+
+    % 1.Stage 내에서 임의의 점을 뽑는다.
+
+    if rem(rrt_struct.iter, rrt_struct.goal_freq) == 0
+
+        rand_pos = rrt_struct.pos_goal;
+
+    else
+
+        rand_pos = [stage_struct.w*rand stage_struct.h*rand];
+
+    end
+
+    
+
+    % 2. 현재 Tree 중에서 임의의 점과 가장 가까운 node를 찾는다.
+
+    idx_closest = rrt_search_shortest_node(rrt_struct, rand_pos);
+
+    
+
+    % 3. 위에서 찾은 node에서 tree를 확장하고, 그 중 rand_pos와 가장 가까운 것을 쓴다.
+
+    curr_pos  = rrt_struct.tree.pos{idx_closest};
+
+    curr_time = rrt_struct.tree.time{idx_closest};
+
+    shortest_next_pos  = [0 0];
+
+    shortest_next_dist = inf;
+
+    shortest_found     = false;
+
+    shortest_u         = [0 0];
+
+    for i = 1:rrt_struct.cnt_expansion
+
+        rand_rad = 2*pi*rand();
+
+        rand_vel = max(rrt_struct.vmax*rand, rrt_struct.vmin);
+
+        rand_ux = rand_vel*cos(rand_rad);
+
+        rand_uy = rand_vel*sin(rand_rad);
+
+        rand_u  = [rand_ux rand_uy];
+
+        
+
+        % tree를 확장할 node가 갈 수 있는지 확인한다.
+
+        next_pos = curr_pos + rand_u;
+
+        if rrt_path_available(curr_pos, next_pos ...
+
+                , stage_struct, obs_struct, curr_time)
+
+            % 현재 path가 갈 수 있다면
+
+            curr_next_dist = norm(rand_pos-next_pos);
+
+            if curr_next_dist < shortest_next_dist
+
+                shortest_next_dist = curr_next_dist;
+
+                shortest_next_pos  = next_pos;
+
+                shortest_u         = rand_u;
+
+                shortest_found     = true;
+
+            end
+
+        end
+
+    end
+
+    
+
+    % 4. shortest_next_pos를 tree에 추가한다.
+
+    if shortest_found
+
+        % shortest node를 찾았다면, tree에 추가한다.
+
+        rrt_struct = rrt_expand_node(rrt_struct, idx_closest ...
+
+            , shortest_next_pos, shortest_u);
+
+    end
+
+    
+
+    % 5. goal point에 도착했는지 확인한다.
+
+    dist2goal = norm(rrt_struct.pos_goal-shortest_next_pos);
+
+    if dist2goal < rrt_struct.threshold
+
+        fprintf('Close enough to the Goal dist: %.1f \n', dist2goal);
+
+        break;
+
+    end
+
+    
+
+    % 종료 조건
+
+    rrt_struct.iter = rrt_struct.iter + 1;
+
+    if rrt_struct.iter > rrt_struct.maxIter
+
+        break;
+
+    end
+
+end
+
+toc;
+
+
+
+% 3. RRT 를 뒤에서부터 따라간다.
+
+% 1. 처음 위치를 설정한다.
+
+nr_node = rrt_struct.nr_node;
+
+final_time  = rrt_struct.tree.time{nr_node};
+
+parent_idx = rrt_struct.tree.parent{nr_node};
+
+% 2. 경로를 저장할 변수를 설정한다.
+
+rrt_path        = zeros(final_time+1, 2);
+
+rrt_path(1, :)  = pos_goal;
+
+path_idx = 1;
+
+% 3. 뒤에서 부터 따라간다.
+
+while 1
+
+    path_idx   = path_idx + 1;
+
+    curr_pos   = rrt_struct.tree.pos{parent_idx};
+
+    parent_idx = rrt_struct.tree.parent{parent_idx};
+
+    rrt_path(path_idx, :)  = curr_pos;
+
+    
+
+    if isequal(rrt_struct.tree.status{parent_idx}, 'root')
+
+        break;
+
+    end
+
+end
+
+rrt_path(end, :) = pos_start;
+
+% 4. path가 앞에서 뒤로 가도록 바꾼다.
+
+rrt_path = flipud(rrt_path);
+
+
+
+%% 4. RRT 최종 결과를 그려보자.
+
+if plot_static_rrt_final
+
+    figure();hold on;
+
+    t = 0;
+
+    plot(stage_struct.boundary(:, 1), stage_struct.boundary(:, 2), 'r', 'LineWidth', 4);
+
+    % 2. Draw obstacles
+
+    for i = 1:obs_struct.nr_obs
+
+        obs_boundary = rrt_get_obs_boundary(obs_struct, i, t);
+
+        h_bos = fill(obs_boundary(:, 1), obs_boundary(:, 2)...
+
+            , obs_struct.color{i} ...
+
+            ,'LineWidth', 4);
+
+        text(mean(obs_boundary(1:end-1, 1)), mean(obs_boundary(1:end-1, 2)) ...
+
+            , sprintf('[%d-th]', i) ...
+
+            , 'HorizontalAlignment','center' ...
+
+            , 'FontSize', 15 );
+
+    end
+
+    % 3. Draw start and goal points
+
+    h_start = plot(pos_start(1), pos_start(2), 'o' ...
+
+        , 'LineWidth', 3 ...
+
+        , 'MarkerEdgeColor','k' ...
+
+        , 'MarkerFaceColor','g' ...
+
+        , 'MarkerSize', 13);
+
+    text(pos_start(1), pos_start(2), '   Start point');
+
+    h_goal = plot(pos_goal(1), pos_goal(2), 'o'...
+
+        , 'LineWidth', 3 ...
+
+        , 'MarkerEdgeColor','k' ...
+
+        , 'MarkerFaceColor','r' ...
+
+        , 'MarkerSize', 13);
+
+    text(pos_goal(1), pos_goal(2), '   Goal point');
+
+    % 4. legend, title and others..
+
+    legend([h_bos h_start h_goal], 'obastacle', 'start', 'goad', -1);
+
+    
+
+    % 5. 각 tree에 대해서 그린다.
+
+    for i = 1:rrt_struct.nr_node
+
+        if isequal(rrt_struct.tree.status{i}, 'node')
+
+            pos = rrt_struct.tree.pos{i};
+
+            plot(pos(1), pos(2), 'bo');
+
+            
+
+            % 현재 node의 parent node를 구한다.
+
+            parent_idx = rrt_struct.tree.parent{i};
+
+            parent_pos = rrt_struct.tree.pos{parent_idx};
+
+            parent_line = [pos ; parent_pos];
+
+            plot(parent_line(:,1), parent_line(:,2), 'b-');
+
+            
+
+            % 현재 node의 시간을 그린다.
+
+            cur_time = rrt_struct.tree.time{i};
+
+            text(pos(1), pos(2), sprintf('  %d', cur_time));
+
+        end
+
+    end
+
+    plot(rrt_path(:,1), rrt_path(:,2), ...
+
+        '--rs','LineWidth',2, ...
+
+        'MarkerEdgeColor', 'k', ...
+
+        'MarkerFaceColor', 'g', ...
+
+        'MarkerSize', 10)
+
+    hold off;
+
+end
+
+
+
+%% 5. 시간에 따라 그려본다. (동영상으로도 저장한다.)
+
+if plot_dynamic_rrt_final 
+
+    fig_dyn_rrt = figure('Position', [900 200 900 700]);
+
+    for t = 1:rrt_struct.tree.time{rrt_struct.nr_node}
+
+        % 1. Draw stage boundary
+
+        clf; hold on;
+
+        plot(stage_struct.boundary(:, 1), stage_struct.boundary(:, 2), 'r', 'LineWidth', 4);
+
+        % 2. Draw obstacles
+
+        for i = 1:obs_struct.nr_obs
+
+            obs_boundary = rrt_get_obs_boundary(obs_struct, i, t);
+
+            h_bos = fill(obs_boundary(:, 1), obs_boundary(:, 2)...
+
+                , obs_struct.color{i} ...
+
+                ,'LineWidth', 4);
+
+            text(mean(obs_boundary(1:end-1, 1)), mean(obs_boundary(1:end-1, 2)) ...
+
+                , sprintf('[%d-th]', i) ...
+
+                , 'HorizontalAlignment','center' ...
+
+                , 'FontSize', 15 );
+
+        end
+
+        % 3. Draw start and goal points
+
+        h_start = plot(pos_start(1), pos_start(2), 'o' ...
+
+            , 'LineWidth', 3 ...
+
+            , 'MarkerEdgeColor','k' ...
+
+            , 'MarkerFaceColor','g' ...
+
+            , 'MarkerSize', 13);
+
+        text(pos_start(1), pos_start(2), '   Start point');
+
+        h_goal = plot(pos_goal(1), pos_goal(2), 'o'...
+
+            , 'LineWidth', 3 ...
+
+            , 'MarkerEdgeColor','k' ...
+
+            , 'MarkerFaceColor','r' ...
+
+            , 'MarkerSize', 13);
+
+        text(pos_goal(1), pos_goal(2), '   Goal point');
+
+        % 4. Current robot's position
+
+        h_robot = plot(rrt_path(t,1), rrt_path(t,2) ...
+
+            , 's', 'LineWidth', 3 ...
+
+            , 'MarkerEdgeColor','k' ...
+
+            , 'MarkerFaceColor','g' ...
+
+            , 'MarkerSize', 16);
+
+        plot(rrt_path(1:t,1), rrt_path(1:t,2) ...
+
+            , '-', 'LineWidth', 2 ...
+
+            , 'Color', 'g');
+
+        % 5. legend, title and others..
+
+        legend([h_bos h_start h_goal h_robot] ...
+
+            , 'obastacle', 'start', 'goad',  'robot', -1);
+
+        hold off; grid on;
+
+        title(sprintf('Operating Stage, time: %d', t), 'FontSize', 15);
+
+        drawnow; pause(.05);
+
+        
+
+        % video 저장을 위한 사진을 설정한다. \
+
+        if save_video
+
+            set(fig_dyn_rrt,'PaperPositionMode','auto')
+
+            print (fig_dyn_rrt , '-dpng', ['pics4video/fig', num2str(t), '.png']) ;
+
+        end
+
+    end
+
+end
+
+ 
+
+if save_video 
+
+    nr_frame = rrt_struct.tree.time{rrt_struct.nr_node};
+
+    vidName = sprintf('vid/dynamic_rrt_%s.avi', datestr(datenum(clock),'yyyy-mm-dd-HH-MM-SS') );
+
+    frmRate = 10;
+
+    video = VideoWriter( vidName );
+
+    video.FrameRate = ( frmRate );
+
+    open( video );
+
+    for i = 1:nr_frame
+
+        img = imread( ['pics4video/fig' num2str(i) '.png']);
+
+        img = im2double(img);
+
+        writeVideo( video, img );
+
+    end
+
+    close( video );
+
+    fprintf('Video save to: %s \n', vidName);
+
+end
