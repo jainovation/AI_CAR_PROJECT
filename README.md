@@ -15,9 +15,9 @@
 * ### Working to thing
   > #### Union TEST : ROS
   > #### 전진영
-    >> ##### Yolo
+    >> ##### Yolo, RRT
   > #### 이규호
-    >> ##### lidar
+    >> ##### lidar and Yolo linkage
   > #### 김준영
     >> ##### slam
     >> ##### RRT
