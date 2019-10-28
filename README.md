@@ -42,6 +42,7 @@
     >> ##### Opencv : Unit test - Labtop Ubuntu 16.04LTS and ROS and TX2 environment
     >> ##### Rviz : example test : autonomous driving test
     >> ##### gazebo : reference code test
+    >> ##### OPencv : Prototpye made servo motor control, when detect "Lane"
     
 * ### What is Al-Car?
 
