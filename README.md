@@ -113,3 +113,5 @@ Limitations
 >### https://medium.com/adventures-in-autonomous-vehicles/introducing-the-f1-10-simulator-b614af2cd652
 >### http://f1tenth.org/build.html
 >### http://f1tenth.org/build/BuildV2.pdf
+>## hp laptop joy issue
+>### https://answers.ros.org/question/58263/teleop-turtlebot-ps3-joystick/
