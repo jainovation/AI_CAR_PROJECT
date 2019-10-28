@@ -117,3 +117,5 @@ Limitations
 >### http://f1tenth.org/build/BuildV2.pdf
 >## hp laptop joy issue
 >### https://answers.ros.org/question/58263/teleop-turtlebot-ps3-joystick/
+>## RRT
+>### http://wiki.ros.org/rrt_exploration/tutorials
