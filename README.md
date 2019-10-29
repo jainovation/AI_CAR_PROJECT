@@ -119,3 +119,4 @@ Limitations
 >### https://answers.ros.org/question/58263/teleop-turtlebot-ps3-joystick/
 >## RRT
 >### http://wiki.ros.org/rrt_exploration/tutorials
+>### https://github.com/hamsadatta/RosBot/tree/Quickstart/Simulation //SLAM 
