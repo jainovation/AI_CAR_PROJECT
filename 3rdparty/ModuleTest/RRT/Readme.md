@@ -1,8 +1,8 @@
 >## Install all required packages
 
->#### sudo apt-get install ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-kobuki ros-kinetic-kobuki-core ros-kinetic-kobuki-gazebo
+>#### $ sudo apt-get install ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-kobuki ros-kinetic-kobuki-core ros-kinetic-kobuki-gazebo
 
->#### sudo apt-get install python-opencv python-numpy python-scikits-learn
+>#### $ sudo apt-get install python-opencv python-numpy python-scikits-learn
 
 >#### $ cd ~/catkin_ws/src/
 >#### $ git clone https://github.com/hasauino/rrt_exploration.git
