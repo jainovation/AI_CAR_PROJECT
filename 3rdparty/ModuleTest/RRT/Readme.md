@@ -18,3 +18,9 @@
 
 >### How to use
 >#### When defining the rectangular region for exploration, the sequence of points is important. The sequence is as follows: top-left corner, bottom-left corner, bottom-right corner, top right corner, and finally the initiation point. Initiation point can be chosen anywhere within the known area (white area in the occupancy grid).
+
+
+>### Reference
+
+>#### http://wiki.ros.org/rrt_exploration/Tutorials
+>#### http://wiki.ros.org/rrt_exploration/Tutorials/singleRobot
