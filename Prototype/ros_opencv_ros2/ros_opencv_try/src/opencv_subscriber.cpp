@@ -10,6 +10,7 @@
 #include "OpenCV_Functions.cpp"
 #include "OpenCV_Utils.h"
 #include "OpenCV_Utils.cpp"
+#include <queue>
 
 
 ros_opencv_try::MsgACC msg;
@@ -17,9 +18,9 @@ ros::Publisher req_pub;
 cv::Mat image, result;
 int distance_result;
 int pre_acc_cmd;
-float Kp=-0.1;
-
-
+float Kp = -0.5;
+queue<int> q;
+int sum_result = 0;
 
 void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 {
@@ -103,7 +104,8 @@ cv::imshow("whiteyellow", result);
     
 
       // result //
-      result = image + result;
+      result = image + result;   
+    
 
 //
 	Point pt1(width*0.4, height*0.65);
@@ -132,22 +134,30 @@ void *test(void *data)
     ros::Rate loop_rate(30);
   while (ros::ok())
   {
-                       
     if(abs(distance_result) < 25)  // ignore distance_result under 25
         //msg.acc_cmd = pre_acc_cmd;
         msg.acc_cmd = 90;
     else{
-        msg.acc_cmd = distance_result * Kp + 90;  // PID control term
-        if( msg.acc_cmd > 135 )	// Neutral point : 90 degrees
-            msg.acc_cmd = 135;
-        else if( msg.acc_cmd < 45 )
-            msg.acc_cmd = 45;
-        pre_acc_cmd = msg.acc_cmd;	// TODO 여기서 각도커맨드 주는거 + saturation 짜야함
+        msg.acc_cmd = distance_result * Kp + 90;  // PID control term with saturation
+        if( msg.acc_cmd > 150 )	                  // Neutral point : 90 degrees
+            msg.acc_cmd = 150;
+        else if( msg.acc_cmd < 30 )
+            msg.acc_cmd = 30;
     }
+
+    q.push(msg.acc_cmd);
+    if(q.size()==10){
+        sum_result -= q.front();
+        q.pop();
+    }
+    sum_result += msg.acc_cmd;
+    msg.acc_cmd = sum_result / q.size();
+
+
+    pre_acc_cmd = msg.acc_cmd;
 
     cout<<msg.acc_cmd<<endl;
     req_pub.publish(msg);
-
     loop_rate.sleep();                  
 
   }
@@ -161,7 +171,103 @@ int main(int argc, char **argv)
   int status;
 
   ros::init(argc, argv, "opencv_subscriber");
-  ros::NodeHandle nh;
+  ros::NodeHandle nh;#include <ros/ros.h>
+2
+#include <image_transport/image_transport.h>
+3
+#include <opencv2/highgui/highgui.hpp>
+4
+#include <cv_bridge/cv_bridge.h>
+5
+#include <iostream>
+6
+#include <opencv2/opencv.hpp>
+7
+#include "ros_opencv_try/MsgACC.h"
+8
+#include <pthread.h>
+9
+#include "OpenCV_Functions.h"
+10
+#include "OpenCV_Functions.cpp"
+11
+#include "OpenCV_Utils.h"
+12
+#include "OpenCV_Utils.cpp"
+13
+​
+14
+​
+15
+ros_opencv_try::MsgACC msg;
+16
+ros::Publisher req_pub;
+17
+cv::Mat image, result;
+18
+int distance_result;
+19
+int pre_acc_cmd;
+20
+float Kp=-0.1;
+21
+​
+22
+​
+23
+​
+24
+void imageCallback(const sensor_msgs::ImageConstPtr& msg)
+25
+{
+26
+  try
+27
+  {
+28
+    image = cv_bridge::toCvShare(msg, "bgr8")->image;
+29
+//    VideoCapture videoCapture("/home/nvidia/Desktop/challenge.mp4");
+30
+​
+31
+//      VideoCapture videoCapture("/home/ubuntu/Desktop/challenge.mp4");
+32
+//    VideoCapture videoCapture("/home/ubuntu/Desktop/1.mp4");
+33
+    
+34
+/*    if (!videoCapture.isOpened()){
+35
+                        cout << "can't open video. \n" << endl;
+36
+                        char a;
+37
+                        cin >> a;
+38
+                        //return 1;
+39
+                }
+40
+*/
+41
+//    while(1){         // video 틀려면 while문 필요
+42
+      //videoCapture.read(image);                       /* select video/cam */
+43
+      image = cv_bridge::toCvShare(msg, "bgr8")->image;
+44
+​
+45
+      result = imageCopy(image);
+46
+      int width = result.cols;
+47
+      int height = result.rows;
+48
+      vector<Point> src_pts, dst_pts;
+49
+      vector<Vec4i> lines;
 
   cv::namedWindow("view");
   cv::namedWindow("whiteyellow");
