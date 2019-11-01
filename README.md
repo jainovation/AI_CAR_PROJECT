@@ -114,6 +114,7 @@ Limitations
 # reference
 >### https://medium.com/adventures-in-autonomous-vehicles/introducing-the-f1-10-simulator-b614af2cd652
 >### https://medium.com/adventures-in-autonomous-vehicles/motion-planning-with-f1-10-c2a151563004
+>### https://github.com/Hypha-ROS/hypharos_racecar
 >### http://f1tenth.org/build.html
 >### http://f1tenth.org/build/BuildV2.pdf
 >## hp laptop joy issue
