@@ -14,3 +14,11 @@ xander@alix:~
 xander@alix:~
 ▶ sudo usermod -aG i2c xander
 5) After you logout and login again you should be able to run i2cdetect -y 1
+
+
+
+- jetson Tx2 보드 모드 변경 및 확인
+https://www.jetsonhacks.com/2017/03/25/nvpmodel-nvidia-jetson-tx2-development-kit/
+
+Tx2보드의 경우에 7.5W 모드와 10W 모드를 사용한다.
+(7.5W (Max-Q) / 15W (Max-P))
