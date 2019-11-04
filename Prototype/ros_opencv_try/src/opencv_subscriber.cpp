@@ -25,6 +25,7 @@ int sum_result = 0;
 #define UPPER_SATURATION 150   // steering angle command upper/lower saturation
 #define LOWER_SATURATION 30
 
+
 void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
 {
   try
@@ -111,6 +112,7 @@ cv::imshow("whiteyellow", result);
     
 
 //
+/*
 	Point pt1(width*0.3, height*0.65);
 	Point pt2(width*0.7, height*0.65);
 	Point pt3(width*0.9, height*1);
@@ -120,6 +122,16 @@ cv::imshow("whiteyellow", result);
 	drawLine(result, result, pt2, pt3, Color, 5);
 	drawLine(result, result, pt3, pt4, Color, 5);
 	drawLine(result, result, pt1, pt4, Color, 5);
+*/
+  pt1 = src_pts[0];
+  pt2 = src_pts[1];
+  pt3 = src_pts[2];
+  pt4 = src_pts[3];
+  Scalar Color(255,0,0);
+  drawLine(result, result, pt2, pt3, Color, 5);
+  drawLine(result, result, pt3, pt4, Color, 5);
+  drawLine(result, result, pt1, pt4, Color, 5);
+
 //
   
       cv::imshow("view", result);
