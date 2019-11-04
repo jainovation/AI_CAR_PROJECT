@@ -1,8 +1,5 @@
-http://www.modulabs.co.kr/index.php?mid=Dynamics&search_target=title_content&search_keyword=slam&document_srl=7084 /mapping
-https://m.blog.naver.com/PostView.nhn?blogId=thumbdown&logNo=220385363246&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F : 라이다 설정
-
-
-
-
-///https://blog.naver.com/jinny444/221488906550 - 이거사용
-http://emanual.robotis.com/docs/en/platform/turtlebot3/slam/#run-slam-nodes //슬램적용
+###https://kr.mathworks.com/help/nav/ref/slammapbuilder-app.html?searchHighlight=SLAM&s_tid=doc_srchtitle#mw_941489e6-61e1-459b-814d-6aea8a6787a5
+(matlab ros slam 적용)
+## roscore
+## rostopic list
+## rosbag record (해당 토픽) - rosbag 파일 저장 후 slam 사용
