@@ -53,10 +53,10 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
       vector<Point> src_pts, dst_pts;
       vector<Vec4i> lines;
 
-      src_pts.push_back(Point(width*0.1, height*0.2));
-      src_pts.push_back(Point(width*0.9, height*0.2));
-      src_pts.push_back(Point(width*0.9, height*1));
-      src_pts.push_back(Point(width*0.1, height*1));
+      src_pts.push_back(Point(width*0.1, height*0.1));
+      src_pts.push_back(Point(width*0.9, height*0.1));
+      src_pts.push_back(Point(width*0.9, height*0.6));
+      src_pts.push_back(Point(width*0.1, height*0.6));
 
       dst_pts.push_back(Point(width*0.1, height*0.0));
       dst_pts.push_back(Point(width*0.9, height*0.0));
@@ -112,22 +112,12 @@ cv::imshow("whiteyellow", result);
     
 
 //
-/*
-	Point pt1(width*0.3, height*0.65);
-	Point pt2(width*0.7, height*0.65);
-	Point pt3(width*0.9, height*1);
-	Point pt4(width*0.1, height*1);
-	Scalar Color(255,0,0);
-	drawLine(result, result, pt1, pt2, Color, 5);
-	drawLine(result, result, pt2, pt3, Color, 5);
-	drawLine(result, result, pt3, pt4, Color, 5);
-	drawLine(result, result, pt1, pt4, Color, 5);
-*/
-  pt1 = src_pts[0];
-  pt2 = src_pts[1];
-  pt3 = src_pts[2];
-  pt4 = src_pts[3];
+  Point pt1 = src_pts[0];
+  Point pt2 = src_pts[1];
+  Point pt3 = src_pts[2];
+  Point pt4 = src_pts[3];
   Scalar Color(255,0,0);
+  drawLine(result, result, pt1, pt2, Color, 5);
   drawLine(result, result, pt2, pt3, Color, 5);
   drawLine(result, result, pt3, pt4, Color, 5);
   drawLine(result, result, pt1, pt4, Color, 5);
