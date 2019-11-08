@@ -22,8 +22,8 @@ int pre_acc_cmd;
 float Kp = -0.3;
 queue<int> q;
 int sum_result = 0;
-#define UPPER_SATURATION 150   // steering angle command upper/lower saturation
-#define LOWER_SATURATION 30
+#define UPPER_SATURATION 180   // steering angle command upper/lower saturation
+#define LOWER_SATURATION 0
 
 
 void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
@@ -53,10 +53,10 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
       vector<Point> src_pts, dst_pts;
       vector<Vec4i> lines;
 
-      src_pts.push_back(Point(width*0.1, height*0.1));
-      src_pts.push_back(Point(width*0.9, height*0.1));
-      src_pts.push_back(Point(width*0.9, height*0.6));
-      src_pts.push_back(Point(width*0.1, height*0.6));
+      src_pts.push_back(Point(width*0, height*0.6));
+      src_pts.push_back(Point(width*1, height*0.6));
+      src_pts.push_back(Point(width*1, height*1));
+      src_pts.push_back(Point(width*0, height*1));
 
       dst_pts.push_back(Point(width*0.1, height*0.0));
       dst_pts.push_back(Point(width*0.9, height*0.0));
@@ -64,7 +64,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
       dst_pts.push_back(Point(width*0.1, height*1.0));
       imagePerspectiveTransformation(result, result, src_pts, dst_pts, Size());
 
-/*	// color detection with hls
+#if 0	// color detection with hls
       Scalar yellow_lower(200, 200, 200);
       Scalar yellow_upper(255, 255, 255);
       Scalar white_lower(10, 150, 100);
@@ -86,11 +86,13 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
       white_image = imageCopy(mask2);
 
       result = yellow_image + white_image;
-*/
+#endif
 
+#if 1
       Scalar white_lower(200, 200, 200);
       Scalar white_upper(255, 255, 255);
       inRange(result, white_lower, white_upper, result); // using RGB
+#endif
 
 cv::imshow("whiteyellow", result);
       imageMorphologicalGradient(result, result);
@@ -182,8 +184,8 @@ int main(int argc, char **argv)
 
   cv::startWindowThread();
   image_transport::ImageTransport it(nh);
-  image_transport::Subscriber sub = it.subscribe("/usb_cam/image_raw", 1, imageCallback);	// subscribe(topic name)
-//  image_transport::Subscriber sub = it.subscribe("/camera/image", 1, imageCallback);	// subscribe(topic name)
+//  image_transport::Subscriber sub = it.subscribe("/usb_cam/image_raw", 1, imageCallback);	// subscribe(topic name)
+  image_transport::Subscriber sub = it.subscribe("/camera/image_raw", 1, imageCallback);	// subscribe(topic name)
 
   req_pub = nh.advertise<ros_opencv_try::MsgACC>("logic_msg", 100);
   
@@ -192,7 +194,6 @@ int main(int argc, char **argv)
         printf("thread create error:");
         exit(0);
     }
-
   
   ros::spin();
   cv::destroyWindow("view");
