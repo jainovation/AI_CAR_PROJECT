@@ -1,5 +1,0 @@
-<launch>
-  <node pkg="usb_cam" type="usb_cam_node" name="usb_cam"/>
-  <node pkg="ros_opencv_try" type="opencv_subscriber" name="opencv_subscriber"/>
-  <node pkg="ros_opencv_try" type="servoExample" name="servoExample1" output="screen"/>
-</launch>
