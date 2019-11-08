@@ -64,19 +64,19 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
       dst_pts.push_back(Point(width*0.1, height*1.0));
       imagePerspectiveTransformation(result, result, src_pts, dst_pts, Size());
 
-#if 0	// color detection with hls
-      Scalar yellow_lower(200, 200, 200);
-      Scalar yellow_upper(255, 255, 255);
-      Scalar white_lower(10, 150, 100);
+#if 1	// color detection with hls
+      //Scalar yellow_lower(200, 200, 200);
+      //Scalar yellow_upper(255, 255, 255);
+      Scalar white_lower(0, 200, 0);
       Scalar white_upper(360, 255, 255);
 
 
       Mat yellow_image, white_image;
-      //rangeColor(result, yellow_image, yellow_lower, yellow_upper, COLOR_BGR2HLS);
-      Mat mask;
-      convertColor(result, mask, COLOR_BGR2HLS);
-      inRange(mask, yellow_lower, yellow_upper, mask);
-      yellow_image = imageCopy(mask);
+      ////rangeColor(result, yellow_image, yellow_lower, yellow_upper, COLOR_BGR2HLS);
+      //Mat mask;
+      //convertColor(result, mask, COLOR_BGR2HLS);
+      //inRange(mask, yellow_lower, yellow_upper, mask);
+      //yellow_image = imageCopy(mask);
 
 
       //rangeColor(result, white_image, white_lower, white_upper, COLOR_BGR2HLS);
@@ -85,10 +85,11 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
       inRange(mask2, white_lower, white_upper, mask2);
       white_image = imageCopy(mask2);
 
-      result = yellow_image + white_image;
+      //result = yellow_image + white_image;
+      result = white_image;
 #endif
 
-#if 1
+#if 0
       Scalar white_lower(200, 200, 200);
       Scalar white_upper(255, 255, 255);
       inRange(result, white_lower, white_upper, result); // using RGB
