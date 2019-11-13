@@ -745,12 +745,22 @@ int lineFittingForPerspectiveImage(Mat &image, Mat &result, vector<Vec4i> &lines
         min_x_left = interpolate(left[1], left[2], left[3], left[4], min_y);
         max_x_left = interpolate(left[1], left[2], left[3], left[4], max_y);
         line(result, Point(min_x_left, min_y), Point(max_x_left, max_y), color, thickness);
+	if(min_x_left > max_x_left)
+		heading_x = 320+150;
+	else
+		heading_x = 320-150;
+
     }
     if( !right.empty())
     {
         min_x_right = interpolate(right[1], right[2], right[3], right[4], min_y);
         max_x_right = interpolate(right[1], right[2], right[3], right[4], max_y);
         line(result, Point(min_x_right, min_y), Point(max_x_right, max_y), color, thickness);
+
+	if(min_x_right > max_x_right)
+		heading_x = 320+150;
+	else
+		heading_x = 320-150;
     }
     if (!left.empty() && !right.empty())
     {   
