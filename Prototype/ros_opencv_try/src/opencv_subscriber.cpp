@@ -46,6 +46,9 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
 //    while(1){		// video 틀려면 while문 필요
       //videoCapture.read(image);			/* select video/cam */
       image = cv_bridge::toCvShare(msg, "bgr8")->image;
+//image = imread("/home/nvidia/Desktop/yolo.png",IMREAD_COLOR);
+
+      resize(image, image, Size(640, 360));
 
       result = imageCopy(image);
       int width = result.cols;
@@ -53,8 +56,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) // Subscriber node
       vector<Point> src_pts, dst_pts;
       vector<Vec4i> lines;
 
-      src_pts.push_back(Point(width*0, height*0.6));
-      src_pts.push_back(Point(width*1, height*0.6));
+      src_pts.push_back(Point(width*0, height*0.5));
+      src_pts.push_back(Point(width*1, height*0.5));
       src_pts.push_back(Point(width*1, height*1));
       src_pts.push_back(Point(width*0, height*1));
 
@@ -103,7 +106,8 @@ cv::imshow("whiteyellow", result);
       //convertColor(result, blackLineImage, COLOR_GRAY2BGR);
       blackLineImage = makeBlackImage(result, true);
       
-      distance_result = lineFittingForPerspectiveImage(blackLineImage, blackLineImage, lines, Scalar(0, 0, 255), 10, 60.0*PI/180.0);
+  //    distance_result = lineFittingForPerspectiveImage(blackLineImage, blackLineImage, lines, Scalar(0, 0, 255), 10, 60.0*PI/180.0);
+      distance_result = lineFittingForPerspectiveImage(blackLineImage, blackLineImage, lines, Scalar(0, 0, 255), 10, 1.732);
   //    cout << distance_result << endl;
       imagePerspectiveTransformation(blackLineImage, result, dst_pts, src_pts, Size());
       //result = result + image;

@@ -21,9 +21,13 @@ int main(int argc, char** argv)
 
 	if (!vc.isOpened()) return -1; // 연결실패
 
-	vc.set(CV_CAP_PROP_FRAME_WIDTH, 640);
+	//vc.set(CV_CAP_PROP_FRAME_WIDTH, 640);	//jjy
 
-	vc.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+	//vc.set(CV_CAP_PROP_FRAME_HEIGHT, 480);	//jjy
+
+	vc.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
+
+	vc.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
 
 	cv::Mat image, result;
 
