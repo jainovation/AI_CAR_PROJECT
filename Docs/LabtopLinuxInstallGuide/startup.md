@@ -11,7 +11,7 @@ https://inpages.tistory.com/149
 
 https://codechacha.com/ko/install-nvidia-driver-ubuntu/
 
-https://jangjy.tistory.com/m/260 (무한로그인 해결하기)
+https://jangjy.tistory.com/m/260 / https://brunch.co.kr/@laviande22/6 (무한로그인 해결하기)
 
 https://www.dell.com/support/article/kr/ko/krdhs1/sln306327/linux-부팅을-위한-nomodeset-커널-부팅-줄-옵션-수동-설정?lang=ko (nomodeset OS-nvidia 간 충돌 해결책)
 
