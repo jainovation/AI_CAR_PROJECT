@@ -1,0 +1,30 @@
+github 정리, ssd정리, 차량 주행 테스트, docker 에서 gpu사용 테스트, docker 에서 jupyter notebook 사용 방법, ssd 다크넷로스 활용
+V사이클 문서작업, vector사이트 문서작업, ISO 26262, 플로우차트, 다이어그램, tensorRT?
+
+1. docker에서 gpu사용하여 학습 환경 찾기
+
+2. jupyter notebook을 docker에서 사용하는 방법 찾기
+
+3. 깃허브에 ssd 작업내용 업로드
+
+4. 문서 자료정리
+
+5. 차량 주행 테스트
+
+6. tensorRT가 무엇인지 조사
+
+7. V사이클, vector 사이트 조사 및 사용
+
+8. ISO 26262, 플로우차트, 다이어그램 작성
+
+월~금
+
+월 : 
+
+화 : 
+
+수 : 
+
+목 : 
+
+금 : 최종발표
