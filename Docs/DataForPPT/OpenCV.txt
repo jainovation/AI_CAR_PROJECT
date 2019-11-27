@@ -1,0 +1,30 @@
+============================ [ OpenCV ] ============================
+
+< OpenCV 처리 순서 > ( 괄호 : 사용자 지정 함수 )
+1. ROI 영역을 Bird-Eye View로 전환 ( imagePerspectiveTransFormation )
+2. 하얀색 검출
+3. imageMorphologicalGradient
+4. 엣지 검출(CannyEdge)
+5. 허프 변환(HoughLinesP)
+6. makeBlackImage
+7. 차선 중심과 영상 중심간 픽셀 차이 계산 ( lineFittingForPerspectiveImage )
+8. Bird-Eye View를 원래 ROI로 다시 전환 ( imagePerspectiveTransFormation)
+9. 원래 영상 + 결과
+10. (영상처리 이후) 영상 중심점 - 차선 중심점 간 차이(Error)를 계산하여 차이가 0에 가까워지도록 PID제어 (비례제어만 사용 : Cmd =  Error * Kp)
+    0~180도 범위로 조향각 커맨드 송신 (90도 중립)
+
+< Issues >
+
+1. 초기 색 검출 RGB로 검출했었는데 빛에 너무 민감함
+   -> HLS 로 바꿈.
+
+2. 차선이 두꺼워서 차선 경계로 허프변환 값이 왔다갔다함
+   -> 조향각 커맨드를 최근 10개 저장해서 나온 평균을 명령으로 내보내는 큐 구조를 만들어 안정화.
+
+3. 카메라가 차선만 인식하는것이 아니라 앞차, 신호등과 같이 상황인식을 해야하기에 시야각을 높게 잡을수 밖에
+   없어서 멀리 떨어진 차선을 인식하여 쫓아감
+   -> ROI 조절로 해결.
+
+4. 차선 하나만 보일때
+   -> 허프 변환에서 왼쪽/오른쪽 차선 구분하는 함수를 수정하여 차선이 하나만 보일때 차선 기울기에 비례하여
+      조향하도록 구성.
